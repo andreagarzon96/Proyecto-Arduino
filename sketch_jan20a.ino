@@ -75,19 +75,19 @@ void loop() {
   switch (buttonSelect)
   {
     case 3:
-      answer(1);
+      answer(q_index, 1);
       break;
     case 2:
-      answer(2);
+      answer(q_index, 2);
       break;
     case 0:
-      answer(3);
+      answer(q_index, 3);
       break;
     case 1:
-      answer(4);
+      answer(q_index, 4);
       break;
     case 7:
-      answer(5);
+      answer(q_index, 5);
       break;
     default:
       break;
@@ -140,7 +140,7 @@ String nextQuestion(int id)
 }
 
 // Sends answer selected to server
-void answer(int n)
+void answer(int q, int n)
 {
   // Send answer to server using JSON: https://www.youtube.com/watch?v=4QYt2Yqo5TA
   if (bClient.connect(server, 80))
@@ -163,7 +163,7 @@ void answer(int n)
     bClient.println("Content-Type: application/json");
 
     // POST Body
-    sprintf(buffer, "{ \"ID\" : \"%s\", \"answer\" : \" %i \" }", arduino_id, n);
+    sprintf(buffer, "{ \"ID\" : \"%s\", \"pregunta\" : \" %i \", \"respuesta\" : \" %i \" }", arduino_id, q, n);
 
     // Content length
     Serial.print("Content-Length: ");
